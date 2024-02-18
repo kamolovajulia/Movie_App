@@ -1,21 +1,21 @@
 import React from 'react';
 
-import Poster from './Poster/Poster';
-
-import style from './CardOfMovie.module.css';
 import { format } from 'date-fns';
 import { enGB } from 'date-fns/locale';
 
 import { Card, Row, Col, Layout, Rate } from 'antd';
-import GenresList from './../GenresList/GenresList';
+import style from './CardOfMovie.module.css';
+import Poster from './Poster/Poster';
+import GenresList from '../GenresList/GenresList';
 import CircleRating from './CircleRating/CircleRating';
+
 const { Header, Content } = Layout;
 
 function CardOfMovie(props) {
   const { id, title, overview, release_date, poster_path, vote_average, addRating, genre_ids, rating = 0 } = props;
   let release = '';
   if (release_date) {
-    let data = release_date.replace(/-/g, ', ');
+    const data = release_date.replace(/-/g, ', ');
     release = format(new Date(data), 'MMMM dd, yyyy', { locale: enGB });
   }
   let text = [...overview];
@@ -28,7 +28,7 @@ function CardOfMovie(props) {
     text = text.join(' ');
   }
 
-  let showTitle = (title) => {
+  const showTitle = (title) => {
     if (title.length > 21) {
       let newTitle = title.slice(0, 20);
       newTitle = newTitle.split(' ');
@@ -36,7 +36,7 @@ function CardOfMovie(props) {
       newTitle.push('...');
       newTitle = newTitle.join(' ');
       return newTitle;
-    } else return title;
+    } return title;
   };
 
   return (

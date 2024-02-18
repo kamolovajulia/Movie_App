@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Offline, Online } from 'react-detect-offline';
+import { Layout, Alert, Tabs } from 'antd';
 import SearchContent from '../SearchContent/SearchContent';
 import RatingList from '../RatingList/RatingList';
 
 import style from './App.module.css';
 
-import { Layout, Alert, Tabs } from 'antd';
 import Loader from '../Loader/Loader';
 
 export const Context = React.createContext(null);
@@ -15,7 +15,7 @@ export default class App extends Component {
     elements: [],
     isLoaded: false,
     label: '',
-    resourse: `https://api.themoviedb.org/3/`,
+    resourse: 'https://api.themoviedb.org/3/',
     url: null,
     isFetching: false,
     sessionID: null,
@@ -23,6 +23,22 @@ export default class App extends Component {
     selectedKeys: 'search',
     genres: null,
   };
+
+  componentDidMount() {
+    this.getSession();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.label !== prevState.label) {
+      this.setState({
+        isFetching: true,
+      });
+      this.getMovies(1);
+      this.setState({
+        isFetching: false,
+      });
+    }
+  }
 
   requestOptions = (method = 'GET', body) => ({
     method,
@@ -48,12 +64,10 @@ export default class App extends Component {
 
   searchName = (e) => {
     if (e.target.value.trim()) {
-      this.setState(() => {
-        return {
-          label: e.target.value.trim(),
-          url: `${this.state.resourse}search/movie?query=${e.target.value.trim()}&include_adult=false&language=en-US&page=`,
-        };
-      });
+      this.setState(() => ({
+        label: e.target.value.trim(),
+        url: `${this.state.resourse}search/movie?query=${e.target.value.trim()}&include_adult=false&language=en-US&page=`,
+      }));
     }
   };
 
@@ -67,24 +81,23 @@ export default class App extends Component {
           this.setState({ isLoaded: true, sessionID: response.guest_session_id });
         }
       })
-      .catch((error) =>
-        this.setState({
-          isLoaded: true,
-          error,
-        })
-      );
+      .catch((error) => this.setState({
+        isLoaded: true,
+        error,
+      }));
 
     fetch(`${this.state.resourse}genre/movie/list?language=en`, this.requestOptions())
       .then((response) => response.json())
       .then((response) => this.setState({ genres: response.genres }))
-      .catch((err) => console.error(err));
+      .catch((error) => this.setState({ error }));
   };
 
   getMovies = (n) => {
     fetch(`${this.state.url}${n}`, {
       headers: {
         Accept: 'application/json',
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMjJjMTYxYTcwNGI1NGZhNjkzMjYyNjcwM2FhZGRjOSIsInN1YiI6IjY1NzhkZmE1YmJlMWRkMDBmZTJjNmU1YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7Wt-Lk56IlrLIcyNKzU4CKg1vvDd3e08yecvC3QDlVY`,
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMjJjMTYxYTcwNGI1NGZhNjkzMjYyNjcwM2FhZGRjOSIsInN1YiI6IjY1NzhkZmE1YmJlMWRkMDBmZTJjNmU1YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7Wt-Lk56IlrLIcyNKzU4CKg1vvDd3e08yecvC3QDlVY',
       },
     })
       .then((res) => (res.ok ? res.json() : Promise.reject(res)))
@@ -101,16 +114,12 @@ export default class App extends Component {
           }));
         }
       })
-      .then(() =>
-        this.setState({
-          isFetching: false,
-        })
-      )
-      .catch((error) =>
-        this.setState({
-          error,
-        })
-      );
+      .then(() => this.setState({
+        isFetching: false,
+      }))
+      .catch((error) => this.setState({
+        error,
+      }));
   };
 
   addRating = (id, n) => {
@@ -119,7 +128,7 @@ export default class App extends Component {
       this.requestOptions('POST', `{"value":${n}}`)
     )
       .then((response) => response.json())
-      .catch((err) => console.error(err));
+      .catch((error) => this.setState({ error }));
 
     setTimeout(() => {
       this.getRatingList();
@@ -139,24 +148,8 @@ export default class App extends Component {
     this.setState({ selectedKeys: e });
   }
 
-  componentDidMount() {
-    this.getSession();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.label !== prevState.label) {
-      this.setState({
-        isFetching: true,
-      });
-      this.getMovies(1);
-      this.setState({
-        isFetching: false,
-      });
-    }
-  }
-
   render() {
-    let { error, isLoaded, genres } = this.state;
+    const { error, isLoaded, genres } = this.state;
 
     if (error) {
       return (
@@ -164,17 +157,17 @@ export default class App extends Component {
           <Alert
             message={`Error ${error.status}`}
             description={`Sorry, could not find ${error.url}`}
-            type='error'
+            type="error"
             style={{ textAlign: 'left' }}
             showIcon
           />
         </div>
       );
-    } else if (!isLoaded) {
+    } if (!isLoaded) {
       return <Loader />;
     }
 
-    let items = [
+    const items = [
       {
         label: 'Search',
         key: 'search',
@@ -208,7 +201,7 @@ export default class App extends Component {
                   centered
                   onChange={(e) => this.changeTabPane(e)}
                   className={style.menu}
-                ></Tabs>
+                />
               </Layout>
             </div>
           </Context.Provider>
@@ -216,9 +209,9 @@ export default class App extends Component {
         <Offline>
           <div className={style.messageError}>
             <Alert
-              message={`Error`}
-              description={`Sorry, connection lost :(`}
-              type='error'
+              message="Error"
+              description="Sorry, connection lost :("
+              type="error"
               style={{ textAlign: 'left' }}
               showIcon
             />
