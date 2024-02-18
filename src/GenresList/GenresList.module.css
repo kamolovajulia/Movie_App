@@ -1,0 +1,16 @@
+.genres {
+  height: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.genresList {
+  padding-top: 8px;
+}
+
+@media (max-width: 420px) {
+  .genresList {
+    position: absolute;
+    left: 80px;
+  }
+}

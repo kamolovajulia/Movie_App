@@ -1,0 +1,144 @@
+@font-face {
+  font-family: 'Inter UI';
+  src: url('./../fonts/Inter-Regular.ttf') format('truetype');
+  src: url('./../fonts/Inter-UI-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.titleStyle {
+  margin: 0;
+  color: #000;
+  font-size: 20px;
+  width: 190px;
+  height: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.headerStyle {
+  padding: 0;
+  background: inherit;
+  text-align: left;
+  font-family: 'Inter UI';
+  line-height: 28px;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  /* margin-bottom: 7px; */
+}
+
+.layoutStyle {
+  background: inherit;
+}
+
+@media (max-width: 420px) {
+  .cardMovie {
+    width: 388px;
+    height: 245px;
+  }
+
+  .gridStyle {
+    height: 245px;
+    text-align: center;
+    border: none;
+    border-radius: 0;
+  }
+
+  .row {
+    flex-wrap: nowrap;
+    padding: 8px;
+  }
+
+  .wrapperLayoutCard {
+    padding: 12px 20px 0 20px;
+    height: 245px;
+    width: 100%;
+  }
+
+  .headerStyle {
+    position: absolute;
+    left: 80px;
+    width: 260px;
+  }
+
+  .releaseStyle {
+    position: relative;
+    left: 60px;
+    padding-top: 12px;
+    margin-bottom: 0;
+  }
+
+  .contentStyle {
+    text-align: start;
+  }
+
+  .description {
+    height: auto;
+    height: 92px;
+    margin: 0;
+    margin-top: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .rate {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+}
+
+@media (min-width: 421px) {
+  .gridStyle {
+    width: 454px;
+    height: 281px;
+    text-align: center;
+    border: none;
+    border-radius: 0;
+  }
+
+  .wrapperLayoutCard {
+    padding: 12px 20px 0 20px;
+    height: 281px;
+  }
+
+  .contentStyle {
+    text-align: left;
+    color: #000;
+    font-family: 'Inter UI';
+    font-size: 12px;
+    line-height: 22px;
+    width: 228px;
+  }
+
+  .releaseStyle {
+    margin: 0;
+    height: 22px;
+    color: #827e7e;
+    font-size: 12px;
+  }
+
+  .mainContent {
+    height: 145px;
+  }
+
+  .description {
+    height: auto;
+    height: 90%;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .rate {
+    font-size: 15px;
+    height: auto;
+    display: flex;
+    align-items: center;
+  }
+}

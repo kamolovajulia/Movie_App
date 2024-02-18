@@ -1,0 +1,29 @@
+.wrapperPoster {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 420px) {
+  .wrapperPoster {
+    width: 60px;
+    height: 91px;
+    position: absolute;
+  }
+
+  .poster {
+    width: 60px;
+    height: 91px;
+  }
+}
+
+@media (min-width: 421px) {
+  .wrapperPoster {
+    width: 183px;
+    height: 281px;
+  }
+
+  .poster {
+    width: 183px;
+    height: 281px;
+  }
+}

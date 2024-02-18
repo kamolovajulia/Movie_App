@@ -1,0 +1,16 @@
+.ratingCircle {
+  background-color: inherit;
+  border: 2px solid;
+  color: #000;
+  font-family: 'Inter UI';
+  font-size: 12px;
+  line-height: 22px;
+  letter-spacing: 0px;
+}
+
+.ratingGrade {
+  margin: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
