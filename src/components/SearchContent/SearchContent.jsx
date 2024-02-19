@@ -28,7 +28,7 @@ function SearchContent({ state, searchName, genres, addRating, getMovies }) {
           total={500}
           pageSizeOptions={[10]}
           showSizeChanger={false}
-          style={{ marginTop: '37px' }}
+          className={style.pagination}
         />
       ) : null}
     </Content>

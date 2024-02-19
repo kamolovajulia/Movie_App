@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './components/App/App';
-import reportWebVitals from './reportWebVitals';
+import { ConfigProvider } from 'antd';
+import App from './App/App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
-    <App />
+    <ConfigProvider
+      theme={{
+        components: {
+          Spin: {
+            fontSize: 18,
+            dotSizeLG: 50,
+          },
+        },
+      }}
+    >
+      <App />
+    </ConfigProvider>
   </React.StrictMode>
 );
-reportWebVitals();

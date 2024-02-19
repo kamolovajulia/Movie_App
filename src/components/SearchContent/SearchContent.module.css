@@ -5,6 +5,10 @@
   line-height: 22px;
 }
 
+.pagination {
+  margin-top: 37px;
+}
+
 @media (min-width: 421px) {
   .content {
     padding-top: 20px;

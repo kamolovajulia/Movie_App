@@ -6,6 +6,13 @@
   font-style: normal;
 }
 
+/* FIXME: почему шрифты лежат не на самом верхнем уровне
+
+  исправить
+
+  должны лежать в App
+*/
+
 .titleStyle {
   margin: 0;
   color: #000;

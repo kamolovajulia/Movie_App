@@ -5,12 +5,14 @@ import ListOfMovies from '../ListOfMovies/ListOfMovies';
 
 const { Content } = Layout;
 
-const RatingList = ({ state }) => (
-  <Content>
-    {state ? (
-      <ListOfMovies dataList={state} />
-    ) : null}
-  </Content>
-);
+function RatingList({ state }) {
+  return (
+    <Content>
+      {state
+        ? <ListOfMovies dataList={state} />
+        : null}
+    </Content>
+  );
+}
 
 export default RatingList;

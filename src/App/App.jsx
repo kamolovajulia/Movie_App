@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Offline, Online } from 'react-detect-offline';
 import { Layout, Alert, Tabs } from 'antd';
-import SearchContent from '../SearchContent/SearchContent';
-import RatingList from '../RatingList/RatingList';
+import SearchContent from '../components/SearchContent/SearchContent';
+import RatingList from '../components/RatingList/RatingList';
 
 import style from './App.module.css';
 
-import Loader from '../Loader/Loader';
+import Loader from '../components/Loader/Loader';
 
 export const Context = React.createContext(null);
 
@@ -123,8 +123,23 @@ export default class App extends Component {
   };
 
   addRating = (id, n) => {
+    this.setState(({ elements }) => {
+      let idx;
+      let newMovieInfo;
+      elements.forEach((el, index) => {
+        if (el.id === id) {
+          idx = index;
+          newMovieInfo = { ...el, rating: n };
+        }
+      });
+      return {
+        elements: [...elements.slice(0, idx), { ...newMovieInfo }, ...elements.slice(idx + 1)]
+      };
+    });
+
+    const { resourse, sessionID } = this.state;
     fetch(
-      `${this.state.resourse}movie/${id}/rating?guest_session_id=${this.state.sessionID}`,
+      `${resourse}movie/${id}/rating?guest_session_id=${sessionID}`,
       this.requestOptions('POST', `{"value":${n}}`)
     )
       .then((response) => response.json())
@@ -163,7 +178,9 @@ export default class App extends Component {
           />
         </div>
       );
-    } if (!isLoaded) {
+    }
+
+    if (!isLoaded) {
       return <Loader />;
     }
 
