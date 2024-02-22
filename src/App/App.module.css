@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Inter UI';
+  src: url('../fonts/Inter-Regular.ttf') format('truetype');
+  src: url('../fonts/Inter-UI-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   padding: 0;
 }
